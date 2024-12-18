@@ -3,6 +3,7 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  background-color: beige;
 }
 
 .logo {
@@ -39,4 +40,23 @@
 
 .read-the-docs {
   color: #888;
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+.flex-container {
+  display: flex;
+  justify-content: space-around; /* Adjust as needed */
+  align-items: flex-start; /* Adjust as needed */
+}
+
+.flex-item {
+  flex: 1;
+  margin: 1em; /* Adjust as needed */
 }
