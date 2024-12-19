@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Register from "./Register";
 import Login from "./Login";
 import Profile from "./Profile";
@@ -16,6 +16,21 @@ export default function Authentication() {
     setList(updatedList);
     localStorage.setItem("users", JSON.stringify(updatedList));
   };
+
+  // loading all users from localStorage
+  const loadUsers = () => {
+    const savedList = localStorage.getItem("users");
+    if (savedList) {
+      setList(JSON.parse(savedList));
+    } else {
+      setList([]);
+    }
+  };
+
+  useEffect(() => {
+    console.log(list);
+    loadUsers();
+  }, []);
 
   return (
     <>
