@@ -3,9 +3,9 @@ import Authentication from "./FuncComps/Authentication";
 
 function App() {
   return (
-    <>
-      <Authentication></Authentication>
-    </>
+    <div id="root">
+      <Authentication />
+    </div>
   );
 }
 

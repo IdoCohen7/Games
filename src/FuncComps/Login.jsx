@@ -2,7 +2,7 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import * as Yup from "yup";
 
-const Login = ({ users }) => {
+const Login = ({ users, onLogin }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -27,8 +27,10 @@ const Login = ({ users }) => {
       if (user) {
         // Successful login
         setError("");
+        onLogin(user);
         alert("ברוך הבא לאתר שלנו");
         // Perform any additional actions after successful login
+        sessionStorage.setItem("user", JSON.stringify(user));
       } else {
         // Invalid credentials
         setError("שם משתמש או סיסמה לא נכונים");
@@ -87,6 +89,7 @@ const Login = ({ users }) => {
 
 Login.propTypes = {
   users: PropTypes.array.isRequired,
+  onLogin: PropTypes.func.isRequired,
 };
 
 export default Login;

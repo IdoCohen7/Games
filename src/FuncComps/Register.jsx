@@ -86,7 +86,7 @@ export default function Register({ updateList }) {
       .min(0, "House Number must be a non-negative number"),
   });
 
-  const signUp = async (event) => {
+  const registerUser = async (event) => {
     event.preventDefault();
 
     const user = {
@@ -106,6 +106,17 @@ export default function Register({ updateList }) {
     try {
       await validationSchema.validate(user, { abortEarly: false });
 
+      const users = JSON.parse(localStorage.getItem("users")) || [];
+      const userExists = users.some(
+        (existingUser) =>
+          existingUser.username === username || existingUser.email === email
+      );
+
+      if (userExists) {
+        console.log("Username or email already exists");
+        throw new Error("Username or email already exists");
+      }
+
       updateList(user);
 
       setUsername("");
@@ -122,9 +133,11 @@ export default function Register({ updateList }) {
       setError("");
       setSuccess("ההרשמה בוצעה בהצלחה, שלום " + user.firstName + "!");
     } catch (err) {
+      // reset success message
       setSuccess("");
 
-      setError(err.errors.join(", "));
+      // display error in red bubble
+      setError(err.errors ? err.errors.join(", ") : err.message);
     }
   };
 
@@ -137,7 +150,7 @@ export default function Register({ updateList }) {
               <h3 className="card-title text-center">חדש? הירשם</h3>
               {error && <div className="alert alert-danger">{error}</div>}
               {success && <div className="alert alert-success">{success}</div>}
-              <form onSubmit={signUp}>
+              <form onSubmit={registerUser}>
                 <div className="form-group mb-3">
                   <label htmlFor="username">שם משתמש</label>
                   <input
